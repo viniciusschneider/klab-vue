@@ -7,14 +7,18 @@ import repository from './repository.json';
 const mockData: IStockItem[] = repository;
 
 export const useAppStore = defineStore('app', {
-   state: (): IStockItemsState => ({
-    items: [],
-    total: mockData.length,
-    loading: true,
-    itemsPerPage: 10,
-    page: 1,
-    sortBy: []
-   }),
+   state: (): IStockItemsState => {
+    const preferences = localStorage['preferences'] && JSON.parse(localStorage['preferences'])
+
+    return {
+      items: [],
+      total: mockData.length,
+      loading: true,
+      itemsPerPage: preferences ? preferences.itemsPerPage : 10,
+      page: preferences ? preferences.page : 1,
+      sortBy: preferences ? preferences.sortBy : []
+    }
+   },
   actions: {
     loadItems({ itemsPerPage, page, sortBy }: ITableFilter, filter: { name: string, quantity: number | null }) {
       this.loading = true;
@@ -55,6 +59,12 @@ export const useAppStore = defineStore('app', {
             amount: item.amount.toLocaleString('pt-br', config)
           }))
           this.loading = false
+          localStorage['preferences'] = JSON.stringify({
+            filter,
+            itemsPerPage,
+            page,
+            sortBy,
+          })
           resolve(true)
         }, 500)
       })

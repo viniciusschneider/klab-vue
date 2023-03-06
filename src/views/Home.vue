@@ -72,7 +72,8 @@
   const { items, itemsPerPage, loading, page, sortBy, total } = storeToRefs(store)
   const showTable = ref(false)
   const pages = computed(() => Math.ceil(total.value / itemsPerPage.value));
-  const form = reactive({ search: '', quantity: null })
+  const preferences = localStorage['preferences'] && JSON.parse(localStorage['preferences'])
+  const form = reactive({ search: preferences ? preferences.filter.name: '', quantity: preferences ? preferences.filter.quantity: '' })
   const options = reactive([
     { name: 'Todas', value: null },
     { name: 'Mais de 50', value: 50 },
