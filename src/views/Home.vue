@@ -21,16 +21,40 @@
         </v-col>
       </v-row>
     </v-container>
-    <Table
-      :items="items"
-      :headers="headers"
-      :total-items="total"
-      :loading="loading"
-      :itemsPerPage="itemsPerPage"
-      :page="page"
-      :sortBy="sortBy"
-      @load-items="loadItems"
-    />
+    <div
+      v-resize="onResize"
+    >
+      <Table
+        v-if="showTable"
+        :items="items"
+        :headers="headers"
+        :total-items="total"
+        :loading="loading"
+        :itemsPerPage="itemsPerPage"
+        :page="page"
+        :sortBy="sortBy"
+        @load-items="loadItems"
+      />
+      <v-container v-else>
+        <v-row>
+          <v-col cols="12" v-for="item of items" :key="item.id">
+            <v-card class="pa-5">
+              <v-card-item>
+                <v-card-title>{{ item.name }}</v-card-title>
+              </v-card-item>
+              <v-card-text>
+                <p>Quantidade em estoque: {{ item.quantity }}</p>
+                <p>Peças para vendas: {{ item.partsForSales }}</p>
+                <p>Peças com defeitos: {{ item.defectiveParts }}</p>
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col cols="12">
+            <v-pagination @update:model-value="pagination" :length="pages"></v-pagination>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
 </template>
 
@@ -38,12 +62,14 @@
   import { useAppStore } from '@/store/app';
   import { storeToRefs } from 'pinia'
   import Table from '@/components/Table.vue';
-  import { reactive, ref, watch } from 'vue';
+  import { computed, onMounted, reactive, ref, watch } from 'vue';
   import { ITableHeader } from '@/models/table.types';
   import { ITableFilter } from '@/models/table-filter.interface';
 
   const store = useAppStore()
   const { items, itemsPerPage, loading, page, sortBy, total } = storeToRefs(store)
+  const showTable = ref(false)
+  const pages = computed(() => Math.ceil(total.value / itemsPerPage.value));
   const form = reactive({ search: '', quantity: null })
   const options = reactive([
     { name: 'Todas', value: null },
@@ -59,6 +85,12 @@
 
   watch(form, () => filter())
 
+  onMounted(() => {
+    if (window.innerWidth <= 600) {
+      pagination(1)
+    }
+  })
+
   function loadItems(data: ITableFilter) {
     store.loadItems(data, { name: form.search, quantity: form.quantity });
   }
@@ -66,5 +98,13 @@
   function filter() {
     if (page.value > 1) store.setPage(1)
     else loadItems({ itemsPerPage: itemsPerPage.value, page: 1, sortBy: sortBy.value })
+  }
+
+  function pagination(page: number) {
+    store.loadItems({ itemsPerPage: 10, page, sortBy: [] }, { name: form.search, quantity: form.quantity });
+  }
+
+  function onResize() {
+    showTable.value = window.innerWidth > 600
   }
 </script>
