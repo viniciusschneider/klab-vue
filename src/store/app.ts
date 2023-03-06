@@ -42,7 +42,18 @@ export const useAppStore = defineStore('app', {
 
           this.total = items.length
           const slice = (page - 1) * itemsPerPage;
-          this.items = items.slice(slice, slice + itemsPerPage)
+          items = items.slice(slice, slice + itemsPerPage)
+          const config: Intl.NumberFormatOptions = {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+            currency: 'BRL',
+            style: 'currency',
+          };
+
+          this.items = items.map(item => ({
+            ...item,
+            amount: item.amount.toLocaleString('pt-br', config)
+          }))
           this.loading = false
           resolve(true)
         }, 500)

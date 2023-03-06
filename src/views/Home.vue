@@ -46,6 +46,8 @@
                 <p>Quantidade em estoque: {{ item.quantity }}</p>
                 <p>Peças para vendas: {{ item.partsForSales }}</p>
                 <p>Peças com defeitos: {{ item.defectiveParts }}</p>
+                <br>
+                <strong>{{ item.amount }}</strong>
               </v-card-text>
             </v-card>
           </v-col>
@@ -81,6 +83,7 @@
     { align: 'start', key: 'quantity', sortable: true, title: 'Quantidade em estoque' },
     { align: 'start', key: 'defectiveParts', sortable: true, title: 'Peças com defeitos' },
     { align: 'start', key: 'partsForSales', sortable: true, title: 'Peças para vendas' },
+    { align: 'start', key: 'amount', sortable: true, title: 'Valor' },
   ]);
 
   watch(form, () => filter())
