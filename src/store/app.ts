@@ -22,6 +22,15 @@ export const useAppStore = defineStore('app', {
         setTimeout(() => {
           let items = [...mockData];
 
+          if (sortBy.length > 0) {
+            const order = sortBy[0].order;
+            (items as any).sort((a: any, b: any) => {
+              if (a[sortBy[0].key] > b[sortBy[0].key]) return order === 'asc' ? 1 : -1
+              if (a[sortBy[0].key] < b[sortBy[0].key]) return order === 'asc' ? -1 : 1
+              return 0
+            })
+          }
+
           if (filter.name) {
             const nameLower = filter.name.toLowerCase();
             items = items.filter(item => item.name.toLowerCase().includes(nameLower))

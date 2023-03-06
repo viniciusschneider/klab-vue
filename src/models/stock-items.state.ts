@@ -6,5 +6,5 @@ export interface IStockItemsState {
   loading: boolean
   page: number
   itemsPerPage: number
-  sortBy: Array<{ key: string, value: string }>
+  sortBy: Array<{ key: string, order: 'desc' | 'asc' }>
 }

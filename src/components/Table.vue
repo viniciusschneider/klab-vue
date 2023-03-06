@@ -24,7 +24,7 @@
     loading: boolean,
     itemsPerPage: number,
     page: number,
-    sortBy: Array<{ key: string, value: string }>,
+    sortBy: Array<{ key: string, order: 'desc' | 'asc' }>,
   }>()
 
   const emit = defineEmits({
