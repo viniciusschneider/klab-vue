@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "defectiveParts": 1,
+    "name": "Pneu",
+    "partsForSales": 5,
+    "quantity": 6
+  },
+  {
+    "id": 2,
+    "defectiveParts": 3,
+    "name": "Vidro",
+    "partsForSales": 47,
+    "quantity": 50
+  },
+  {
+    "id": 3,
+    "defectiveParts": 10,
+    "name": "Velocímetro",
+    "partsForSales": 20,
+    "quantity": 30
+  },
+  {
+    "id": 4,
+    "defectiveParts": 2,
+    "name": "Freio",
+    "partsForSales": 30,
+    "quantity": 32
+  },
+  {
+    "id": 5,
+    "defectiveParts": 0,
+    "name": "Parafuso",
+    "partsForSales": 500,
+    "quantity": 500
+  },
+  {
+    "id": 6,
+    "defectiveParts": 0,
+    "name": "Arruela",
+    "partsForSales": 400,
+    "quantity": 400
+  },
+  {
+    "id": 7,
+    "defectiveParts": 2,
+    "name": "Aro esportivo",
+    "partsForSales": 50,
+    "quantity": 52
+  },
+  {
+    "id": 8,
+    "defectiveParts": 5,
+    "name": "Trava",
+    "partsForSales": 25,
+    "quantity": 30
+  },
+  {
+    "id": 9,
+    "defectiveParts": 2,
+    "name": "Farol",
+    "partsForSales": 42,
+    "quantity": 44
+  },
+  {
+    "id": 10,
+    "defectiveParts": 0,
+    "name": "Motor",
+    "partsForSales": 60,
+    "quantity": 60
+  },
+  {
+    "id": 11,
+    "defectiveParts": 30,
+    "name": "Chave",
+    "partsForSales": 80,
+    "quantity": 110
+  },
+  {
+    "id": 12,
+    "defectiveParts": 0,
+    "name": "Botão",
+    "partsForSales": 20,
+    "quantity": 20
+  }
+]
