@@ -11,19 +11,36 @@ export const useAppStore = defineStore('app', {
     items: [],
     total: mockData.length,
     loading: true,
+    itemsPerPage: 10,
+    page: 1,
+    sortBy: []
    }),
   actions: {
-    loadItems({ itemsPerPage, page, sortBy }: ITableFilter) {
+    loadItems({ itemsPerPage, page, sortBy }: ITableFilter, filter: { name: string, quantity: number | null }) {
       this.loading = true;
       new Promise((resolve) => {
         setTimeout(() => {
-          const items = [...mockData];
+          let items = [...mockData];
+
+          if (filter.name) {
+            const nameLower = filter.name.toLowerCase();
+            items = items.filter(item => item.name.toLowerCase().includes(nameLower))
+          }
+
+          if (filter.quantity) {
+            items = items.filter(item => item.quantity > (filter.quantity as number))
+          }
+
+          this.total = items.length
           const slice = (page - 1) * itemsPerPage;
           this.items = items.slice(slice, slice + itemsPerPage)
           this.loading = false
           resolve(true)
-        }, 2000)
+        }, 500)
       })
+    },
+    setPage(page: number) {
+      this.page = page
     },
   },
 })

@@ -4,6 +4,9 @@
     :items-length="totalItems"
     :items="items"
     :loading="loading"
+    :page="page"
+    :items-per-page="itemsPerPage"
+    :sort-by="sortBy"
     class="elevation-1"
     @update:options="load"
   ></v-data-table-server>
@@ -19,6 +22,9 @@
     totalItems: number,
     items: any[],
     loading: boolean,
+    itemsPerPage: number,
+    page: number,
+    sortBy: Array<{ key: string, value: string }>,
   }>()
 
   const emit = defineEmits({
